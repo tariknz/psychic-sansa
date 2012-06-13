@@ -101,10 +101,10 @@
     <?php 
         try {
           if (! @include_once( '_config.php' ))
-            throw new Exception ('functions.php does not exist');
+            throw new Exception ('_config.php does not exist');
           // or 
           if (!file_exists('_config.php'))
-            throw new Exception ('functions.php does not exist');
+            throw new Exception ('_config.php does not exist');
         else
           require_once('_config.php' ); 
         }
