@@ -1,0 +1,31 @@
+<?php 
+
+//Database Configuration
+$_config = array (
+	'db' =>
+	array(
+			'hostname' => 	''
+		,	'username' => 	''
+		,	'password' => 	''
+		,	'default_db' => ''
+		),
+
+	'db_repl' =>
+	array(
+			'hostname' => 	''
+		,	'username' => 	''
+		,	'password' => 	''
+		,	'default_db' => ''
+		)
+	);
+
+
+$mailconfig = array (
+	"smtp_host"  => "ssl://smtp.gmail.com" // sets GMAIL as the SMTP server
+	, "port" 	 => 465 // set the SMTP port for the GMAIL server
+	, "username" => "" // GMAIL username
+	, "password" => "" // GMAIL password
+	)
+
+
+?>

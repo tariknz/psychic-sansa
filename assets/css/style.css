@@ -1,0 +1,64 @@
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+.sidebar-nav {
+  padding: 9px 0;
+}
+
+.txt-query {
+  width: 100%;
+  width: 500px;
+  min-height: 100px;
+}
+
+.query{
+  font: 1em Arial, sans-serif;
+}
+
+.alert-success > p, .alert-success > ul {
+  margin-bottom: 0;
+}
+
+
+#proclist tr.red{
+  background-color: #FFD5D5;
+}
+
+#proclist tr.yellow{
+  background-color: #f5deb3;
+}
+
+#proclist tr.light{
+  background-color: #FAEBD7;
+}
+
+#proclist td {
+  text-overflow: ellipsis;
+  overflow: hidden; 
+}
+
+#proclist table{
+  width: 100%; 
+  white-space: nowrap; 
+  table-layout: fixed;
+
+}
+
+#proclist .th{
+  padding: 0px;
+}
+#proclist td {
+  font-size: 0.8em;
+
+}
+
+th {
+  text-align: left;
+}
+
+#restore {
+  margin-left: 55px;
+  margin-top: 5px;
+  width: 100px;
+}
