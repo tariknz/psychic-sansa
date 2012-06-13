@@ -1,4 +1,4 @@
-<?php include_once("_config.php"); ?>
+
 <?php 
 
   //Navigational Pages
@@ -98,12 +98,38 @@
       </div>
     </div>
 
+    <?php 
+        try {
+          if (! @include_once( '_config.php' ))
+            throw new Exception ('functions.php does not exist');
+          // or 
+          if (!file_exists('_config.php'))
+            throw new Exception ('functions.php does not exist');
+        else
+          require_once('_config.php' ); 
+        }
+        catch(Exception $e) {    
+          echo '<br /><br /><div class="span7 offset3">
+                  <div class="alert alert-error" style="margin-bottom: 0px;">
+                    <p>Please make sure that you configure the "_config.php.default" 
+                      and rename it to "_config.php"</p>
+                  </div>
+                </div>';
+          exit();
+        }
+
+    ?>
+
+
+
+
     <div class="container-fluid">
       <div class="row-fluid">
         <div class="span3 offset4">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Quick Stats</li>
+
 
               <?php 
 
