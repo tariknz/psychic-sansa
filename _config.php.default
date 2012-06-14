@@ -2,6 +2,8 @@
 
 //Database Configuration
 $_config = array (
+
+	//master
 	'db' =>
 	array(
 			'hostname' => 	''
@@ -10,7 +12,17 @@ $_config = array (
 		,	'default_db' => ''
 		),
 
+	//replication slave (only 1 supported right now)
 	'db_repl' =>
+	array(
+			'hostname' => 	''
+		,	'username' => 	''
+		,	'password' => 	''
+		,	'default_db' => ''
+		),
+
+	//add more servers as needed
+	'another_server' =>
 	array(
 			'hostname' => 	''
 		,	'username' => 	''
