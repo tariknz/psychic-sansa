@@ -32,7 +32,7 @@ function checkMysql($server,$status_xml,$key)
 		$xml_server->addAttribute('status','ERROR');
 		$xml_server->addAttribute('message',$e->getMessage());
 
-		sendEmail('tarik@interactive-ltd.com',$server.': connection error',$e->getMessage());
+		sendEmail($server.': connection error',$e->getMessage());
 		$status = "ERROR: ". $e->getMessage();
 	}
 
@@ -40,16 +40,16 @@ function checkMysql($server,$status_xml,$key)
 }
 
 
-function sendEmail($email,$title,$body)
+function sendEmail($title,$body)
 {
 	global $mailconfig;
 
 	$sentat = "Sent at: ".date("Y-m-d H:i:s");
 
-	$name = $email;
+	$email = $mailconfig['mail_to'];
 
-	$email_from = 'heartbeat_bot@interactive-ltd.com';
-	$name_from = 'Interactive Heartbeat monitor';
+	$email_from = $mailconfig['mail_from'];
+	$name_from = $mailconfig['mail_name'];
 
 	$send_using_gmail = true;
 
@@ -65,7 +65,7 @@ function sendEmail($email,$title,$body)
     $mail->Password = $mailconfig['password']; // GMAIL password
 
 	//Typical mail data
-	$mail->AddAddress($email, $name);
+	$mail->AddAddress($email, $email);
 	$mail->SetFrom($email_from, $name_from);
 	$mail->Subject = $title;
 	$mail->Body = $body;

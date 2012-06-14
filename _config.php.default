@@ -21,7 +21,12 @@ $_config = array (
 
 
 $mailconfig = array (
-	"smtp_host"  => "ssl://smtp.gmail.com" // sets GMAIL as the SMTP server
+	"mail_to" => "" //email for system admin that will recieve notifications and errors
+	,"mail_from" =>	"" //email used for reply-to (can be anything)
+	,"mail_name" => "Interactive monitor" //name of the notification bot
+
+	//SMTP Setup
+	,"smtp_host"  => "ssl://smtp.gmail.com" // sets GMAIL as the SMTP server
 	, "port" 	 => 465 // set the SMTP port for the GMAIL server
 	, "username" => "" // GMAIL username
 	, "password" => "" // GMAIL password
