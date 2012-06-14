@@ -3,7 +3,7 @@
     <div class="span11">
       <br />
       <div class="row">
-        <div class="span2"><a class="btn" id="refreshbutton" href="#">Pause/Resume</a></div>
+        <div class="span1"><a class="btn refreshbutton" href="#">Pause</a></div>
         <div class="span6">
           <form action="#">
             <div class="btn-group" id="proclistgroup" data-toggle="buttons-radio">
@@ -29,8 +29,8 @@
           <br /><br />
         </center>
       </div>
-      <div class="row"><div id="results"> ... Loading ... </div></div>
-      <div class="row"><p><a class="btn" id="refreshbutton2" href="#">Pause/Resume</a></p></div>
+      <div class="row"><div id="results"></div></div>
+      <div class="row"><p><a class="btn refreshbutton" href="#">Pause</a></p></div>
     </div>
 
     <script type="text/javascript">
@@ -60,26 +60,28 @@
           $(".proccesstoggle").attr("disabled", "disabled");
           $("#results").html("");
           $("#loading").css({ 'display': 'block'});
+          if(paused == 1)
+            pauseOrResume();
           //ajaxProcesslist();
         }
       );
 
 
-      $("#refreshbutton").click(function(event) {
+      $(".refreshbutton").click(function(event) {
         event.preventDefault(); 
         pauseOrResume();
       });
 
-      $("#refreshbutton2").click(function(event) {
-        event.preventDefault(); 
-        pauseOrResume();
-      });
+
 
       function pauseOrResume(){
+        $(".refreshbutton").toggleClass("btn-success");
         if(paused == 0){
+          $(".refreshbutton").text("Resume");
           paused = 1;
         }
         else {
+          $(".refreshbutton").text("Pause");
           paused = 0;
           ajaxProcesslist();
         }
@@ -87,6 +89,11 @@
 
 
       $(document).ready(function(){
+        $(".proccesstoggle").attr("disabled", "disabled");
+        $("#results").html("");
+        $("#loading").css({ 'display': 'block'});
+        if(paused == 1)
+          pauseOrResume();
         ajaxProcesslist();
       });
 

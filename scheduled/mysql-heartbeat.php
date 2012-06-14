@@ -6,18 +6,19 @@ $status_xml = new SimpleXMLElement("<status></status>");
 $status_xml->addAttribute('date', date("Y-m-d H:i:s"));
 
 foreach ($_config as $key => $server) {
-	checkMysql($server,$status_xml);
+	checkMysql($server,$status_xml,$key);
 }
 
 
-function checkMysql($server,$status_xml)
+function checkMysql($server,$status_xml,$key)
 {
 	$xml_server = $status_xml->addChild('server');
 	$xml_server->addAttribute('hostname',$server['hostname']);
+	$xml_server->addAttribute('key',$key);
 
 	try {
 		
-		$dbh = new PDO("mysql:host={$server['hostname']}", $server['username'],$server['password']);
+		$dbh = new PDO("mysql:host={$server['hostname']}", $server['username'],$server['password'], array(PDO::ATTR_TIMEOUT => "5"));
     	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //Throw PDOException.
 
     	echo $server['hostname'].': connected successfully<br />';

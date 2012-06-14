@@ -6,8 +6,8 @@
 	for ($i = 0; $i < sizeof($xml->server); $i++) { 
 		foreach($xml->server[$i]->attributes() as $a => $b) {
 		    switch ($a) {
-		    	case 'hostname':
-		    		$hostname = $b;
+		    	case 'key':
+		    		$key = $b;
 		    		break;
 		    	case 'status':
 		    		$status = $b;
@@ -27,14 +27,17 @@
 		else
 			$class = 'warning';
 
-		echo '<tr><td width="50px"><div><span class="label label-'.$class.'">'.$status.'</span></td><td>'.$hostname.'</td></tr></div>';
+
+		$db = $_config["{$key}"];
+
+		echo '<tr><td width="50px"><div><center><span class="label label-'.$class.'">'.$status.'</span></center></td><td>'. $db['nickname'] .' ('.$db['hostname'].')</td></tr></div>';
 
 		if(isset($status_message))
 			echo '<tr><td colspan="2"><div class="alert alert-error" style="margin-bottom: 0px;">'.$status_message.'</div></td></tr>';
 		
 		unset($status_message);
 		unset($status);
-		unset($hostname);
+		unset($key);
 	}
 
 
