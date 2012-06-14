@@ -128,7 +128,7 @@
         <div class="span3 offset4">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Quick Stats</li>
+              <li class="nav-header">Navigation</li>
 
 
               <?php 

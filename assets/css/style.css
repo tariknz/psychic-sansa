@@ -7,9 +7,7 @@ body {
 }
 
 .txt-query {
-  width: 100%;
-  width: 500px;
-  min-height: 100px;
+  width: 77%;
 }
 
 .query{
@@ -18,6 +16,10 @@ body {
 
 .alert-success > p, .alert-success > ul {
   margin-bottom: 0;
+}
+
+#compare_search {
+  width: 20%;
 }
 
 

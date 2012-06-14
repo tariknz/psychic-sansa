@@ -32,7 +32,7 @@ function checkMysql($server,$status_xml,$key)
 		$xml_server->addAttribute('status','ERROR');
 		$xml_server->addAttribute('message',$e->getMessage());
 
-		sendEmail($server.': connection error',$e->getMessage());
+		sendEmail($server['hostname'].': connection error',$e->getMessage());
 		$status = "ERROR: ". $e->getMessage();
 	}
 
@@ -81,9 +81,9 @@ function sendEmail($title,$body)
 }
 
 function addToLog($server,$status,$status_xml){
-	$myFile = $_SERVER['DOCUMENT_ROOT'] . '/dba/logs/'.$server.'.log';
+	$myFile = $_SERVER['DOCUMENT_ROOT'] . '/dba/logs/'.$server['hostname'].'.log';
 	$fh = fopen($myFile, 'a') or die("can't open file");
-	$stringData = "[".date("Y-m-d H:i:s")."]".$server.": ".$status."\n";
+	$stringData = "[".date("Y-m-d H:i:s")."]".$server['hostname'].": ".$status."\n";
 	fwrite($fh, $stringData);
 	fclose($fh);
 

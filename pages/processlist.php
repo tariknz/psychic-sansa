@@ -3,15 +3,17 @@
     <div class="span11">
       <br />
       <div class="row">
-        <div class="span1"><a class="btn refreshbutton" href="#">Pause</a></div>
         <div class="span6">
           <form action="#">
-            <div class="btn-group" id="proclistgroup" data-toggle="buttons-radio">
-              <?php 
-                foreach ($_config as $key => $server) { 
-                  echo '<button class="proccesstoggle btn" name="'.$key.'">'.$server['nickname'].'</button>';
-                }
-              ?>
+            <div class="btn-toolbar">
+              <div class="btn-group"><a class="btn refreshbutton btn-warning" href="#">Pause</a></div>
+              <div class="btn-group" id="proclistgroup" data-toggle="buttons-radio">
+                <?php 
+                  foreach ($_config as $key => $server) { 
+                    echo '<button class="proccesstoggle btn" name="'.$key.'">'.$server['nickname'].'</button>';
+                  }
+                ?>
+              </div>
             </div>
           </form>
         </div>
