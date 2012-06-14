@@ -10,17 +10,19 @@ if(isset($_config[$server])){
   $db = $_config['db'];
 }
 
-$result = connect($db['hostname'],$db['username'],$db['password']);
-output($result);
+$result = connect($db);
+
+if(isset($result))
+  output($result);
 
 
-
-function connect($server,$user,$pass)
+function connect($db)
 {
   $debug = 1;
+
   try
   {
-    $dbh    = new PDO("mysql:host=$server", $user, $pass);
+    $dbh    = new PDO("mysql:host={$db['hostname']}", $db['username'], $db['password'], array(PDO::ATTR_TIMEOUT => "5"));
 
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //Throw PDOException.
 
@@ -34,7 +36,8 @@ function connect($server,$user,$pass)
 
     return $array;
   } catch (PDOException $e){ 
-    echo '<div class="alert alert-error">'. $e->getMessage() .'</div>'; 
+    echo "<div class=\"alert alert-error\"><p><b>Seems like your server ({$db['hostname']}) could be down</b></p>"; 
+    echo "<p>{$e->getMessage()}</p></div>"; 
   }
 
 }
@@ -50,17 +53,17 @@ function output($array){
 	array_multisort($time, SORT_DESC, $array);
 	
 	//echo '<pre>';
-    echo '<div id="content">';
-    echo '<br /><table id="proclist" class="process table" width = "100%">';
-    echo '<col width="55px">';
-    echo '<col width="100px">';
-    echo '<col width="160px">';
-    echo '<col width="65px">';
-    echo '<col width="65px">';
-    echo '<col width="45px">';
-    echo '<col width="120px">';
-    echo '<tr><th>ID</th><th>User</th><th>Host</th><th>DB</th><th>Status</th><th>Time</th><th>State</th><th>Query</th></tr>';
- 
+  echo '<div id="content">';
+  echo '<br /><table id="proclist" class="process table" width = "100%">';
+  echo '<col width="55px">';
+  echo '<col width="100px">';
+  echo '<col width="160px">';
+  echo '<col width="65px">';
+  echo '<col width="65px">';
+  echo '<col width="45px">';
+  echo '<col width="120px">';
+  echo '<tr><th>ID</th><th>User</th><th>Host</th><th>DB</th><th>Status</th><th>Time</th><th>State</th><th>Query</th></tr>';
+
 	foreach ($array as $rows => $row)
 	{
     if ($row['Time'] > 30)
