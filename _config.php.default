@@ -1,7 +1,7 @@
 <?php 
 
 //Database Configuration
-$_config = array (
+$DB_SERVERS = array (
 
 	//master
 	'db' =>
@@ -32,7 +32,7 @@ $_config = array (
 	);
 
 
-$mailconfig = array (
+$MAIL_CONFIG = array (
 	"mail_to" => "" //email for system admin that will recieve notifications and errors
 	,"mail_from" =>	"" //email used for reply-to (can be anything)
 	,"mail_name" => "Interactive monitor" //name of the notification bot

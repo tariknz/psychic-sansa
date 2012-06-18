@@ -9,7 +9,7 @@
               <div class="btn-group"><a class="btn refreshbutton btn-warning" href="#">Pause</a></div>
               <div class="btn-group" id="proclistgroup" data-toggle="buttons-radio">
                 <?php 
-                  foreach ($_config as $key => $server) { 
+                  foreach ($DB_SERVERS as $key => $server) { 
                     echo '<button class="proccesstoggle btn" name="'.$key.'">'.$server['nickname'].'</button>';
                   }
                 ?>

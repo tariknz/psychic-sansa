@@ -5,7 +5,7 @@ include_once('../_config.php');
 $status_xml = new SimpleXMLElement("<status></status>");
 $status_xml->addAttribute('date', date("Y-m-d H:i:s"));
 
-foreach ($_config as $key => $server) {
+foreach ($DB_SERVERS as $key => $server) {
 	checkMysql($server,$status_xml,$key);
 }
 
@@ -42,14 +42,14 @@ function checkMysql($server,$status_xml,$key)
 
 function sendEmail($title,$body)
 {
-	global $mailconfig;
+	global $MAIL_CONFIG;
 
 	$sentat = "Sent at: ".date("Y-m-d H:i:s");
 
-	$email = $mailconfig['mail_to'];
+	$email = $MAIL_CONFIG['mail_to'];
 
-	$email_from = $mailconfig['mail_from'];
-	$name_from = $mailconfig['mail_name'];
+	$email_from = $MAIL_CONFIG['mail_from'];
+	$name_from = $MAIL_CONFIG['mail_name'];
 
 	$send_using_gmail = true;
 
@@ -59,10 +59,10 @@ function sendEmail($title,$body)
 
     $mail->IsSMTP(); // telling the class to use SMTP
     $mail->SMTPAuth = true; // enable SMTP authentication
-    $mail->Host = $mailconfig['smtp_host']; // sets GMAIL as the SMTP server
-    $mail->Port = $mailconfig['port']; // set the SMTP port for the GMAIL server
-    $mail->Username = $mailconfig['username']; // GMAIL username
-    $mail->Password = $mailconfig['password']; // GMAIL password
+    $mail->Host = $MAIL_CONFIG['smtp_host']; // sets GMAIL as the SMTP server
+    $mail->Port = $MAIL_CONFIG['port']; // set the SMTP port for the GMAIL server
+    $mail->Username = $MAIL_CONFIG['username']; // GMAIL username
+    $mail->Password = $MAIL_CONFIG['password']; // GMAIL password
 
 	//Typical mail data
 	$mail->AddAddress($email, $email);

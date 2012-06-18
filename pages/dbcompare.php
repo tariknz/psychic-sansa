@@ -4,7 +4,7 @@
 <div class="row-fluid">
 	<div class="span10">
 		<form action="index.php?p=dbcompare" method="post">
-			<textarea type="text" name="query" class="txt-query" style="overflow-y:hidden;" rows="1" onkeyup='this.rows = (this.value.split("\n").length||1);'><?php if(isset($_POST['query'])) echo $_POST['query']; else echo 'select * from '; ?>
+			<textarea type="text" name="query" class="txt-query" style="overflow-y:hidden;" rows="1" onkeyup='this.rows = (this.value.split("\n").length||1);'><?php if(isset($_POST['query'])) echo trim($_POST['query']); else echo 'select * from '; ?>
 			</textarea>
 			<input type="submit" id="compare_search" value="Compare" align="right"/>
 		</form>
@@ -23,8 +23,8 @@ if(isset($_POST['query']))
 	//$query = "select * from articles where datecreated BETWEEN '2012-06-01 00:00:00' AND '2012-06-02 00:00:00'";
 	
 	//get db config
-	$main_db = $_config['db'];
-	$replication_db = $_config['db_repl'];
+	$main_db = $DB_SERVERS['db'];
+	$replication_db = $DB_SERVERS['db_repl'];
 
 
 	$actual = getArray($main_db['hostname'],$main_db['username'],$main_db['password'],$main_db['default_db'],$query);

@@ -4,10 +4,10 @@ include_once('../_config.php');
 
 $server = $_POST['server'];
 
-if(isset($_config[$server])){
-  $db = $_config[$server];
+if(isset($DB_SERVERS[$server])){
+  $db = $DB_SERVERS[$server];
 }else{
-  $db = $_config['db'];
+  $db = $DB_SERVERS['db'];
 }
 
 $result = connect($db);

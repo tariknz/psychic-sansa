@@ -1,6 +1,6 @@
 <?php
 
-$db = $_config['db_repl']; 
+$db = $DB_SERVERS['db_repl']; 
 
 //TODO: Support more than one slave
 //foreach($hosts as $server) {
