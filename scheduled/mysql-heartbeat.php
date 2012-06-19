@@ -1,7 +1,15 @@
 <?php
 
-//include_once('../_config.php');
-echo dirname(dirname(__FILE__)).'/_config.php';
+//////////////////////////////////////////////////////////////
+//															//
+//	Scheduled task used for checking database connectivity. //
+// 	Will check all db's in the config and display the 		//
+//	status in the status bar under the navigation 			//
+//															//
+//	NOTE: Set this file up as a scheduled task 				//
+//	to run for this functionality to work  					//
+//															//
+//////////////////////////////////////////////////////////////
 
 include_once(dirname(dirname(__FILE__)).'/_config.php');
 

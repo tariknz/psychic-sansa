@@ -8,110 +8,106 @@
 			</textarea>
 			<input type="submit" id="compare_search" value="Compare" align="right"/>
 		</form>
-<div>
+			<div>
+				<?
 
-<?
+				//$expected = loadCSV($csv1);
+				//$actual = loadCSV($csv2);
 
-//$expected = loadCSV($csv1);
-//$actual = loadCSV($csv2);
+				if(isset($_POST['query']))
+				{
+					$query = str_replace(array("\n","\r"),' ',$_POST['query']);
 
-if(isset($_POST['query']))
-{
-	$query = str_replace(array("\n","\r"),' ',$_POST['query']);
-	
-	//echo $query;
-	//$query = "select * from articles where datecreated BETWEEN '2012-06-01 00:00:00' AND '2012-06-02 00:00:00'";
-	
-	//get db config
-	$main_db = $DB_SERVERS['db'];
-	$replication_db = $DB_SERVERS['db_repl'];
+					//get db config
+					$main_db = $DB_SERVERS['db'];
+					$replication_db = $DB_SERVERS['db_repl'];
 
 
-	$actual = getArray($main_db['hostname'],$main_db['username'],$main_db['password'],$main_db['default_db'],$query);
+					$actual = getArray($main_db['hostname'],$main_db['username'],$main_db['password'],$main_db['default_db'],$query);
 
-	if(isset($actual))
-		$expected = getArray($replication_db['hostname'],$replication_db['username'],$replication_db['password'],$replication_db['default_db'],$query);
+					if(isset($actual))
+						$expected = getArray($replication_db['hostname'],$replication_db['username'],$replication_db['password'],$replication_db['default_db'],$query);
 
-	if(isset($expected))
-		compare2DArray($expected, $actual);
+					if(isset($expected))
+						compare2DArray($expected, $actual);
 
-}
-
-function compare2DArray($expected, $actual){
-	$count = 0;
-	$rows = 0;
-	$echo = "";
-
-	if(sizeof($expected) != sizeof($actual)){
-		echo '<div class="alert alert-block"><p>Warning size mismatch</p>';
-		echo '<p>Size of expected: '.sizeof($expected).'</p>';
-		echo '<p>Size of actual: '.sizeof($actual).'</p></div>';
-	} 
-	else 
-	{
-		$maxsize = min(sizeof($expected), sizeof($actual));
-
-		for ($i=0; $i < $maxsize; $i++) { 
-		 	foreach ($expected[$i] as $j => $value) {
-
-		 		if(strcmp($expected[$i][$j],$actual[$i][$j]) > 0){
-					$echo .= "<b>Missmatch occured in Row: {$i} In column \"{$j}\"</b><br /><br />";
-					if($actual[$i][$j] == NULL)
-						$actual[$i][$j] = '<i>[NULL]</i>';
-
-					reset($expected[$i]);
-					$first_key = key($expected[$i]);
-
-					reset($actual[$i]);
-					$first_key2 = key($actual[$i]);
-
-					if($first_key2 == $first_key)
-						$echo .= "{$first_key}: gsgsd {$expected[$i][$first_key]}";
-					else
-						$echo .= "LINE MISMATCH ----- EXPECTED KEY: {$first_key}: {$expected[$i][$first_key]} - ACTUAL KEY: {$first_key2}: {$actual[$i][$first_key2]}";
-					
-					$echo .= "<ul>
-								<li>EXPECT: {$expected[$i][$j]}</li>
-								<li>ACTUAL: {$actual[$i][$j]} </li>
-							</ul>";
-					$echo .= "<br />";
-					$count++;
 				}
 
-			}
-			$rows++;
-		}
+				function compare2DArray($expected, $actual){
+					$count = 0;
+					$rows = 0;
+					$echo = "";
 
-		if($count == 0) 
-			echo '<div class="alert alert-success">';
-		else 
-			echo '<div class="alert alert-block">';
-		
-		echo '<p>Differences found: '. $count . ' -    Rows returned: '. $rows . '</p></div>';
-		print $echo;
-	}
-}
+					if(sizeof($expected) != sizeof($actual)){
+						echo '<div class="alert alert-block"><p>Warning size mismatch</p>';
+						echo '<p>Size of expected: '.sizeof($expected).'</p>';
+						echo '<p>Size of actual: '.sizeof($actual).'</p></div>';
+					} 
+					else 
+					{
+						$maxsize = min(sizeof($expected), sizeof($actual));
 
-function getArray($dbhost,$dbuser,$dbpass,$dbname,$query){
+						for ($i=0; $i < $maxsize; $i++) { 
+						 	foreach ($expected[$i] as $j => $value) {
 
-	try
-	{
-		$dbh    = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
-		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //Throw PDOException.
+						 		if(strcmp($expected[$i][$j],$actual[$i][$j]) > 0){
+									$echo .= "<b>Missmatch occured in Row: {$i} In column \"{$j}\"</b><br /><br />";
+									if($actual[$i][$j] == NULL)
+										$actual[$i][$j] = '<i>[NULL]</i>';
 
-		$sql  = $query;
-		$stmt   = $dbh->query($sql);
-		$array  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+									reset($expected[$i]);
+									$first_key = key($expected[$i]);
 
-		$dbh = null;
+									reset($actual[$i]);
+									$first_key2 = key($actual[$i]);
 
-		return $array;
-	} catch (PDOException $e){ 
-		echo '<div class="alert alert-error">'. $e->getMessage() .'</div>'; 
-	}
-}
+									if($first_key2 == $first_key)
+										$echo .= "{$first_key}: {$expected[$i][$first_key]}";
+									else
+										$echo .= "LINE MISMATCH ----- EXPECTED KEY: {$first_key}: {$expected[$i][$first_key]} - ACTUAL KEY: {$first_key2}: {$actual[$i][$first_key2]}";
+									
+									$echo .= "<ul>
+												<li>EXPECT: {$expected[$i][$j]}</li>
+												<li>ACTUAL: {$actual[$i][$j]} </li>
+											</ul>";
+									$echo .= "<br />";
+									$count++;
+								}
 
-?>
-</div>
+							}
+							$rows++;
+						}
+
+						if($count == 0) 
+							echo '<div class="alert alert-success">';
+						else 
+							echo '<div class="alert alert-block">';
+						
+						echo '<p>Differences found: '. $count . ' -    Rows returned: '. $rows . '</p></div>';
+						print $echo;
+					}
+				}
+
+				function getArray($dbhost,$dbuser,$dbpass,$dbname,$query){
+
+					try
+					{
+						$dbh    = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
+						$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //Throw PDOException.
+
+						$sql  = $query;
+						$stmt   = $dbh->query($sql);
+						$array  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+						$dbh = null;
+
+						return $array;
+					} catch (PDOException $e){ 
+						echo '<div class="alert alert-error">'. $e->getMessage() .'</div>'; 
+					}
+				}
+
+				?>
+		</div>
 	</div>
 </div>
