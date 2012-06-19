@@ -7,6 +7,10 @@
       "Title" => "Processlist",
       "Page" => "processlist",
       "URL" => "processlist.php"
+      ),    
+    array(
+      "Title" => "Processlist JSON",
+      "Page" => "processlist_json"
       ),
     array(
       "Title" => "Database Growth",

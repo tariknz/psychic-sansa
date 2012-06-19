@@ -65,10 +65,11 @@ function compare2DArray($expected, $actual){
 					reset($actual[$i]);
 					$first_key2 = key($actual[$i]);
 
-					if(strcmp($first_key2, $first_key) == 0)
-						$echo .= "{$first_key}: {$expected[$i][$first_key]}";
+					if($first_key2 == $first_key)
+						$echo .= "{$first_key}: gsgsd {$expected[$i][$first_key]}";
 					else
 						$echo .= "LINE MISMATCH ----- EXPECTED KEY: {$first_key}: {$expected[$i][$first_key]} - ACTUAL KEY: {$first_key2}: {$actual[$i][$first_key2]}";
+					
 					$echo .= "<ul>
 								<li>EXPECT: {$expected[$i][$j]}</li>
 								<li>ACTUAL: {$actual[$i][$j]} </li>

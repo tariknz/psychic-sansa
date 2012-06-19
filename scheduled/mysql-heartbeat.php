@@ -1,6 +1,9 @@
 <?php
 
-include_once('../_config.php');
+//include_once('../_config.php');
+echo dirname(dirname(__FILE__)).'/_config.php';
+
+include_once(dirname(dirname(__FILE__)).'/_config.php');
 
 $status_xml = new SimpleXMLElement("<status></status>");
 $status_xml->addAttribute('date', date("Y-m-d H:i:s"));
@@ -81,13 +84,13 @@ function sendEmail($title,$body)
 }
 
 function addToLog($server,$status,$status_xml){
-	$myFile = $_SERVER['DOCUMENT_ROOT'] . '/dba/logs/'.$server['hostname'].'.log';
+	$myFile = dirname(__FILE__) . '/logs/'.$server['hostname'].'.log';
 	$fh = fopen($myFile, 'a') or die("can't open file");
 	$stringData = "[".date("Y-m-d H:i:s")."]".$server['hostname'].": ".$status."\n";
 	fwrite($fh, $stringData);
 	fclose($fh);
 
-	$myFile = $_SERVER['DOCUMENT_ROOT'] . '/dba/logs/status.xml';
+	$myFile = dirname(__FILE__) . '/logs/status.xml';
 	$fh = fopen($myFile, 'w') or die("can't open file");
 
 	$stringData = $status_xml->asXML();

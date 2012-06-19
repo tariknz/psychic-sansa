@@ -19,7 +19,7 @@
 		$db = null; //close connection
 
 
-		$myFile = "F:/xampp/htdocs/dba/logs/graph.csv";
+		$myFile = $_SERVER['DOCUMENT_ROOT'] . '/dba/scheduled/logs/graph.csv';
 		$fh = fopen($myFile, 'w') or die("can't open file");
 		$stringData = "Date,DB Size (MB)\n" ;
 		fwrite($fh, $stringData);
@@ -64,7 +64,7 @@
 		    // containing div
 		    document.getElementById("graphdiv"),
 		    // CSV or path to a CSV file.
-		    "./logs/graph.csv",
+		    "./scheduled/logs/graph.csv",
 		    {
 				axes: { 
 				  x: { 

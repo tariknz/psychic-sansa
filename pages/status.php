@@ -1,7 +1,7 @@
 	
 <table class="table" style="white-space: normal; ">
 	<?php 
-		$xml = simplexml_load_file("logs/status.xml");
+		$xml = simplexml_load_file("scheduled/logs/status.xml");
 
 		for ($i = 0; $i < sizeof($xml->server); $i++) { 
 			foreach($xml->server[$i]->attributes() as $a => $b) {
@@ -44,8 +44,11 @@
 </table>
 <?php
 		$lastupdated = (string)$xml->attributes()->date;
+
+		$lastupdated_minutes = round(abs(strtotime($lastupdated) - strtotime(date('Y-m-d H:i:s'))) / 60,2);
+
 		//echo '<div><i><p style="color: #888" alt="last updated">'.$lastupdated.'</i> <a href="#" id="refresh-status"><i class="icon-refresh"></i></a></p></div>';
-		echo '<div><i><p style="color: #888" alt="last updated">'.$lastupdated.'</i></p></div>';
+		echo '<div><i><p style="color: #888" alt="last updated">'.$lastupdated.' ('.$lastupdated_minutes.' minutes ago)</i></p></div>';
 
 ?>
 
