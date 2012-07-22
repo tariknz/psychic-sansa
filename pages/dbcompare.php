@@ -4,8 +4,7 @@
 <div class="row-fluid">
 	<div class="span10">
 		<form action="index.php?p=dbcompare" method="post">
-			<textarea type="text" name="query" class="txt-query" style="overflow-y:hidden;" rows="1" onkeyup='this.rows = (this.value.split("\n").length||1);'><?php if(isset($_POST['query'])) echo trim($_POST['query']); else echo 'select * from '; ?>
-			</textarea>
+			<textarea type="text" name="query" class="txt-query" style="overflow-y:hidden;" rows="1" onkeyup='this.rows = (this.value.split("\n").length||1);'><?php if(isset($_POST['query'])) echo trim($_POST['query']); else echo 'select * from '; ?></textarea>
 			<input type="submit" id="compare_search" value="Compare" align="right"/>
 		</form>
 			<div>
